@@ -1,0 +1,147 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block content %}   
+
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Page wrapper  -->
+                    <!-- ============================================================== -->
+                    <div class="page-wrapper">
+                        <!-- ============================================================== -->
+                        <!-- Bread crumb and right sidebar toggle -->
+                        <!-- ============================================================== -->
+                        <div class="page-breadcrumb">
+                            <div class="row">
+                                <div class="col-5 align-self-center">
+                                    <h4 class="page-title">API</h4>
+                                    <div class="d-flex align-items-center">
+                                    </div>
+                                </div>
+                                <div class="col-7 align-self-center">
+                                    <div class="d-flex no-block justify-content-end align-items-center">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item">
+                                                    <a href="#">Home</a>
+                                                </li>
+                                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- End Bread crumb and right sidebar toggle -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Container fluid  -->
+                        <!-- ============================================================== -->
+                        <div class="container-fluid">
+                            <!-- ============================================================== -->
+                            <!-- Start Page Content -->
+                            <!-- ============================================================== -->
+                            <!-- add row -->
+
+
+                            <!-- Row selection (multiple rows) -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <!-- <button id="button" class="btn btn-primary mb-2"><i class="mdi mdi-filter"></i>Add Row</button> -->
+                                             <!-- Button trigger modal -->
+                                                <button id ="updatebutton" type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="mdi mdi-filter"></i>
+                                                    Add Project
+                                                </button>
+                                                
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="form-group">
+                                                                  <label for="exampleInputEmail1">Name</label>
+                                                                  <input type="text" class="form-control" id="exampleInputName" aria-describedby="NAmeHelp">
+                                                                  <span class="error" id="projectnameError1" style = "color: red;font-size: 12px;" ></span>
+                                                                </div>
+                                                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                                                              </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button id="closebutton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" id ="updatesavebutton" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="form-group">
+                                                                  <label for="exampleInputEmail1">Name</label>
+                                                                  <input type="text" class="form-control" id="exampleInputName" aria-describedby="NAmeHelp" placeholder="Enter project name">
+                                                                </div>
+                                                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                                                              </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button id="closebutton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+
+                                            <div class="table-responsive">
+                                                <table id="example" class="table table-striped table-bordered display" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Action</th>
+                                                            <th>ID</th>
+                                                            <th>NAME</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- ============================================================== -->
+                            <!-- End PAge Content -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- Right sidebar -->
+                            <!-- ============================================================== -->
+                            <!-- .right-sidebar -->
+                            <!-- ============================================================== -->
+                            <!-- End Right sidebar -->
+                            <!-- ============================================================== -->
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- End Container fluid  -->
+{% endblock %}
