@@ -130,6 +130,9 @@ ENV/
 env.bak/
 venv.bak/
 
+#credentials.txt
+credentials.txt/
+
 # Spyder project settings
 .spyderproject
 .spyproject

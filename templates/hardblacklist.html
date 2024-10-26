@@ -1,0 +1,140 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <!-- <h4 class="page-title">API</h4> -->
+                <div class="d-flex align-items-center">
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <!-- Row selection (multiple rows) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- <button id="button" class="btn btn-primary mb-2"><i class="mdi mdi-filter"></i>Add Row</button> -->
+                        <button id="insertButton" type="button" class="btn btn-primary mb-2" data-toggle="modal"
+                            data-target="#insertModal">
+                            Add Setting
+                        </button>
+
+                        <!-- Insert Modal -->
+                        <div class="modal fade" id="insertModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Hardblacklist</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="projectId1">Projekt ID</label>
+                                                    <input type="number" class="form-control" id="projectId1"
+                                                        aria-describedby="projectIdHelp" required>
+                                                    <span class="error1" id="projectIdError1"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="domain1">Domain</label>
+                                                    <input type="text" class="form-control"
+                                                        id="domain1" aria-describedby="domainHelp"
+                                                        required>
+                                                    <span class="error1" id="domainError1"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="closebutton1" type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" id="insertHardBlacklist"
+                                            class="btn btn-primary" >Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- update Modal -->
+                        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Update Setting</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="projectId">Projekt ID</label>
+                                                    <input type="number" class="form-control" id="projectId"
+                                                        aria-describedby="projectIdHelp" required>
+                                                    <span class="error1" id="projectIdError"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="domain">Domain</label>
+                                                    <input type="text" class="form-control"
+                                                        id="domain" aria-describedby="domainHelp"
+                                                        required>
+                                                    <span class="error" id="domainError"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="closebutton" type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" id="updateHardBlacklist"
+                                            class="btn btn-primary" onclick="updateHardBlacklist()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="hardblacklistTable" class="table table-striped table-bordered display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th style="display: none;">ID</th>
+                                        <th>Projekt ID</th>
+                                        <th>Domain</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Container fluid  -->
+    {% endblock %}
+
+    {% block extra_scripts %}
+    <script src="{% static 'js/hardblacklist.js' %}"></script>
+
+    {% endblock %}

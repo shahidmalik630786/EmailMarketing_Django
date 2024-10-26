@@ -1,0 +1,559 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <!-- <h4 class="page-title">API</h4> -->
+                <div class="d-flex align-items-center">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <!-- Row selection (multiple rows) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        
+
+                        <!-- <button id="button" class="btn btn-primary mb-2"><i class="mdi mdi-filter"></i>Add Row</button> -->
+                        <button id="insertButton" type="button" class="btn btn-primary mb-2" data-toggle="modal"
+                            data-target="#insertModal">
+                            Add Setting
+                        </button>
+
+
+                        <!-- Insert Modal -->
+                        <div class="modal fade" id="insertModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Setting</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="projektId">Projekt ID</label>
+                                                    <input type="number" class="form-control" id="projektId1"
+                                                        aria-describedby="projektIdHelp" required>
+                                                    <span class="error1" id="projektIdError1"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-lg-6 ">
+                                                        <h3>ABSENDER</h3>
+                                                        <div class="form-group">
+                                                            <label for="absenderName">Absender Name</label>
+                                                            <input type="text" class="form-control" id="absenderName1"
+                                                                aria-describedby="absenderNameHelp" required>
+                                                            <span class="error1" id="absenderNameError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderFirma">Absender Firma</label>
+                                                            <input type="text" class="form-control" id="absenderFirma1"
+                                                                aria-describedby="absenderFirmaHelp" required>
+                                                            <span class="error1" id="absenderFirmaError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderStrasse">Absender Strasse</label>
+                                                            <input type="text" class="form-control" id="absenderStrasse1"
+                                                                aria-describedby="absenderStrasseHelp" required>
+                                                            <span class="error1" id="absenderStrasseError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderPlz">Absender PLZ</label>
+                                                            <input type="text" class="form-control" id="absenderPlz1"
+                                                                aria-describedby="absenderPlzHelp" required>
+                                                            <span class="error1" id="absenderPlzError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderTelefon">Absender Telefon</label>
+                                                            <input type="number" class="form-control" id="absenderTelefon1"
+                                                                aria-describedby="absenderTelefonHelp" >
+                                                            <span class="error1" id="absenderTelefonError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderEmail">Absender Email</label>
+                                                            <input type="email" class="form-control" id="absenderEmail1"
+                                                                aria-describedby="absenderEmailHelp" required>
+                                                            <span class="error1" id="absenderEmailError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="absenderHomepage">Absender Homepage</label>
+                                                            <input type="url" class="form-control" id="absenderHomepage1"
+                                                                aria-describedby="absenderHomepageHelp" required>
+                                                            <span class="error1" id="absenderHomepageError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">API CREDENTIALS</h3>
+                                                        <div class="form-group">
+                                                            <label for="apiKey">API Key</label>
+                                                            <input type="text" class="form-control" id="apiKey1"
+                                                                aria-describedby="apiKeyHelp" required>
+                                                            <span class="error1" id="apiKeyError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tokenLimit">Token Limit</label>
+                                                            <input type="number" class="form-control" id="tokenLimit1"
+                                                                aria-describedby="tokenLimitHelp" required>
+                                                            <span class="error1" id="tokenLimitError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">OTHERS</h3>
+                                                        <div class="form-group">
+                                                            <label for="bccEmail1">BCC Email 1</label>
+                                                            <input type="email" class="form-control" id="bccEmail11"
+                                                                aria-describedby="bccEmail1Help" >
+                                                            <span class="error1" id="bccEmail1Error1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="bccEmail2">BCC Email 2</label>
+                                                            <input type="email" class="form-control" id="bccEmail21"
+                                                                aria-describedby="bccEmail2Help" >
+                                                            <span class="error1" id="bccEmail2Error1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="debug">Debug</label>
+                                                            <input type="number" class="form-control" id="debug1"
+                                                                aria-describedby="debugHelp" required>
+                                                            <span class="error1" id="debugError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="maxWorkers">Max Workers</label>
+                                                            <input type="number" class="form-control" id="maxWorkers1"
+                                                                aria-describedby="maxWorkersHelp" required>
+                                                            <span class="error1" id="maxWorkersError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-6 ">
+                                                        <h3 class="mt-2">SMTP</h3>
+                                                        <div class="form-group">
+                                                            <label for="smtpEmail">SMTP Email</label>
+                                                            <input type="email" class="form-control" id="smtpEmail1"
+                                                                aria-describedby="smtpEmailHelp" required>
+                                                            <span class="error1" id="smtpEmailError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpName">SMTP Name</label>
+                                                            <input type="text" class="form-control" id="smtpName1"
+                                                                aria-describedby="smtpNameHelp" required>
+                                                            <span class="error1" id="smtpNameError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpPassword">SMTP Password</label>
+                                                            <input type="password" class="form-control"
+                                                                id="smtpPassword1" aria-describedby="smtpPasswordHelp"
+                                                                required>
+                                                            <span class="error1" id="smtpPasswordError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpServer">SMTP Server</label>
+                                                            <input type="text" class="form-control" id="smtpServer1"
+                                                                aria-describedby="smtpServerHelp" required>
+                                                            <span class="error1" id="smtpServerError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpPort">SMTP Port</label>
+                                                            <input type="number" class="form-control" id="smtpPort1"
+                                                                aria-describedby="smtpPortHelp" required>
+                                                            <span class="error1" id="smtpPortError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="sslTls">SSL/TLS</label>
+                                                            <input type="checkbox" class="form-check-input mx-2"
+                                                                id="sslTls1" required>
+                                                            <span class="error1" id="sslTlsError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">TIME</h3>
+                                                        <div class="form-group">
+                                                            <label for="sendStartHour">Send Start Hour</label>
+                                                            <input type="number" class="form-control" id="sendStartHour1"
+                                                                aria-describedby="sendStartHourHelp" required>
+                                                            <span class="error1" id="sendStartHourError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="sendEndHour">Send End Hour</label>
+                                                            <input type="number" class="form-control" id="sendEndHour1"
+                                                                aria-describedby="sendEndHourHelp" required>
+                                                            <span class="error1" id="sendEndHourError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="waitTime">Wait Time</label>
+                                                            <input type="number" class="form-control" id="waitTime1"
+                                                                aria-describedby="waitTimeHelp" required>
+                                                            <span class="error1" id="waitTimeError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">TASK DETAILS</h3>
+                                                        <div class="form-group">
+                                                            <label for="arbeitsaufgabe">Arbeitsaufgabe</label>
+                                                            <textarea class="form-control" id="arbeitsaufgabe1" rows="3"
+                                                                required></textarea>
+                                                            <span class="error1" id="arbeitsaufgabeError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="betreffAufgabe">Betreff Aufgabe</label>
+                                                            <textarea class="form-control" id="betreffAufgabe1" rows="3"
+                                                                required></textarea>
+                                                            <span class="error1" id="betreffAufgabeError1"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="closebutton1" type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" id="insertSettings"
+                                            class="btn btn-primary" >Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- update Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Update Setting</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="projektId">Projekt ID</label>
+                                                    <input type="number" class="form-control" id="projektId"
+                                                        aria-describedby="projektIdHelp" required>
+                                                    <span class="error" id="projektIdError"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-lg-6 ">
+                                                        <h3>ABSENDER</h3>
+                                                        <div class="form-group">
+                                                            <label for="absenderName">Absender Name</label>
+                                                            <input type="text" class="form-control" id="absenderName"
+                                                                aria-describedby="absenderNameHelp" required>
+                                                            <span class="error" id="absenderNameError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderFirma">Absender Firma</label>
+                                                            <input type="text" class="form-control" id="absenderFirma"
+                                                                aria-describedby="absenderFirmaHelp" required>
+                                                            <span class="error" id="absenderFirmaError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderStrasse">Absender Strasse</label>
+                                                            <input type="text" class="form-control" id="absenderStrasse"
+                                                                aria-describedby="absenderStrasseHelp" required>
+                                                            <span class="error" id="absenderStrasseError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderPlz">Absender PLZ</label>
+                                                            <input type="text" class="form-control" id="absenderPlz"
+                                                                aria-describedby="absenderPlzHelp" required>
+                                                            <span class="error" id="absenderPlzError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderTelefon">Absender Telefon</label>
+                                                            <input type="number" class="form-control" id="absenderTelefon"
+                                                                aria-describedby="absenderTelefonHelp" >
+                                                            <span class="error" id="absenderTelefonError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="absenderEmail">Absender Email</label>
+                                                            <input type="email" class="form-control" id="absenderEmail"
+                                                                aria-describedby="absenderEmailHelp" required>
+                                                            <span class="error" id="absenderEmailError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="absenderHomepage">Absender Homepage</label>
+                                                            <input type="url" class="form-control" id="absenderHomepage"
+                                                                aria-describedby="absenderHomepageHelp" required>
+                                                            <span class="error" id="absenderHomepageError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">API CREDENTIALS</h3>
+                                                        <div class="form-group">
+                                                            <label for="apiKey">API Key</label>
+                                                            <input type="text" class="form-control" id="apiKey"
+                                                                aria-describedby="apiKeyHelp" required>
+                                                            <span class="error" id="apiKeyError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tokenLimit">Token Limit</label>
+                                                            <input type="number" class="form-control" id="tokenLimit"
+                                                                aria-describedby="tokenLimitHelp" required>
+                                                            <span class="error" id="tokenLimitError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">OTHERS</h3>
+                                                        <div class="form-group">
+                                                            <label for="bccEmail1">BCC Email 1</label>
+                                                            <input type="email" class="form-control" id="bccEmail1"
+                                                                aria-describedby="bccEmail1Help" >
+                                                            <span class="error" id="bccEmail1Error"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="bccEmail2">BCC Email 2</label>
+                                                            <input type="email" class="form-control" id="bccEmail2"
+                                                                aria-describedby="bccEmail2Help" >
+                                                            <span class="error" id="bccEmail2Error"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="debug">Debug</label>
+                                                            <input type="number" class="form-control" id="debug"
+                                                                aria-describedby="debugHelp" required>
+                                                            <span class="error" id="debugError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="maxWorkers">Max Workers</label>
+                                                            <input type="number" class="form-control" id="maxWorkers"
+                                                                aria-describedby="maxWorkersHelp" required>
+                                                            <span class="error" id="maxWorkersError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-6 ">
+                                                        <h3 class="mt-2">SMTP</h3>
+                                                        <div class="form-group">
+                                                            <label for="smtpEmail">SMTP Email</label>
+                                                            <input type="email" class="form-control" id="smtpEmail"
+                                                                aria-describedby="smtpEmailHelp" required>
+                                                            <span class="error" id="smtpEmailError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpName">SMTP Name</label>
+                                                            <input type="text" class="form-control" id="smtpName"
+                                                                aria-describedby="smtpNameHelp" required>
+                                                            <span class="error" id="smtpNameError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpPassword">SMTP Password</label>
+                                                            <input type="password" class="form-control"
+                                                                id="smtpPassword" aria-describedby="smtpPasswordHelp"
+                                                                required>
+                                                            <span class="error" id="smtpPasswordError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpServer">SMTP Server</label>
+                                                            <input type="text" class="form-control" id="smtpServer"
+                                                                aria-describedby="smtpServerHelp" required>
+                                                            <span class="error" id="smtpServerError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="smtpPort">SMTP Port</label>
+                                                            <input type="number" class="form-control" id="smtpPort"
+                                                                aria-describedby="smtpPortHelp" required>
+                                                            <span class="error" id="smtpPortError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="sslTls">SSL/TLS</label>
+                                                            <input type="checkbox" class="form-check-input mx-2"
+                                                                id="sslTls" required>
+                                                            <span class="error" id="sslTlsError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">TIME</h3>
+                                                        <div class="form-group">
+                                                            <label for="sendStartHour">Send Start Hour</label>
+                                                            <input type="number" class="form-control" id="sendStartHour"
+                                                                aria-describedby="sendStartHourHelp" required>
+                                                            <span class="error" id="sendStartHourError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="sendEndHour">Send End Hour</label>
+                                                            <input type="number" class="form-control" id="sendEndHour"
+                                                                aria-describedby="sendEndHourHelp" required>
+                                                            <span class="error" id="sendEndHourError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="waitTime">Wait Time</label>
+                                                            <input type="number" class="form-control" id="waitTime"
+                                                                aria-describedby="waitTimeHelp" required>
+                                                            <span class="error" id="waitTimeError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <h3 class="mt-2">TASK DETAILS</h3>
+                                                        <div class="form-group">
+                                                            <label for="arbeitsaufgabe">Arbeitsaufgabe</label>
+                                                            <textarea class="form-control" id="arbeitsaufgabe" rows="3"
+                                                                required></textarea>
+                                                            <span class="error" id="arbeitsaufgabeError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="betreffAufgabe">Betreff Aufgabe</label>
+                                                            <textarea class="form-control" id="betreffAufgabe" rows="3"
+                                                                required></textarea>
+                                                            <span class="error" id="betreffAufgabeError"
+                                                                style="color: red; font-size: 12px;"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="closebutton" type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" id="updateSettings"
+                                            class="btn btn-primary" onclick="updateSettings()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal
+                        <div class="modal fade" id="exampleUpdateModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Name</label>
+                                                <input type="text" class="form-control" id="exampleInputName"
+                                                    aria-describedby="NAmeHelp" placeholder="Enter project name">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="closebutton" type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="table-responsive">
+                            <table id="settingTable" class="table table-striped table-bordered display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th style="display: none;">ID</th>
+                                        <th>Absender Name</th>
+                                        <th>Absender Firma</th>
+                                        <th>Absender Email</th>
+                                        <th>Smtp Email</th>
+                                        <th>Send Start_hour</th>
+                                        <th>Send End Hour</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Container fluid  -->
+    {% endblock %}
+
+    {% block extra_scripts %}
+    <script src="{% static 'js/setting.js' %}"></script>
+
+    {% endblock %}
