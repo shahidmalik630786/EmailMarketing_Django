@@ -1,10 +1,8 @@
+
 {% extends 'master.html' %}
 {% load static %}
-
-
 {% block content %}
 
-<!-- ============================================================== -->
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <div class="page-breadcrumb">
@@ -14,23 +12,21 @@
                 <div class="d-flex align-items-center">
                 </div>
             </div>
-
+            <div class="col-7 align-self-center">
+            </div>
         </div>
     </div>
     <div class="container-fluid">
+        <!-- Row selection (multiple rows) -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
 
-                        
-
-                        <!-- <button id="button" class="btn btn-primary mb-2"><i class="mdi mdi-filter"></i>Add Row</button> -->
                         <button id="insertButton" type="button" class="btn btn-primary mb-2" data-toggle="modal"
                             data-target="#insertModal">
-                            Add Email
+                            Add ImpressumNichtGefunden
                         </button>
-
 
                         <!-- Insert Modal -->
                         <div class="modal fade" id="insertModal" tabindex="-1" role="dialog"
@@ -38,7 +34,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Emails</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Add ImpressumNichtGefunden</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -46,28 +42,13 @@
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <form>
-
                                                 <div class="form-group">
-                                                    <label for="projectId1">Projekt ID</label>
-                                                    <input type="number" class="form-control" id="projectId1"
-                                                        aria-describedby="projectIdHelp" required>
-                                                    <span class="error1" id="projectIdError1"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ceoName1">CEO Name</label>
-                                                    <input type="text" class="form-control"
-                                                        id="ceoName1" aria-describedby="ceoNameHelp"
+                                                    <label for="projectID1">Projekt ID</label>
+                                                    <input type="number" class="form-control"
+                                                        id="projectID1" aria-describedby="projectIDHelp"
                                                         required>
-                                                    <span class="error1" id="ceoNameError1"
+                                                    <span class="error1" id="projectIDError1"
                                                         style="color: red; font-size: 12px;"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="email1">Email</label>
-                                                    <input type="email" class="form-control" id="email1"
-                                                        aria-describedby="emailHelp" required>
-                                                    <span class="error1" id="emailError1"
-                                                        style="color: red; font-size: 12px;"></span>.
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="domain1">Domain</label>
@@ -77,13 +58,21 @@
                                                     <span class="error1" id="domainError1"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="timeStamp1">Time Stamp</label>
+                                                    <input type="datetime-local" class="form-control"
+                                                           id="timeStamp1" aria-describedby="timeStampHelp"
+                                                           required>
+                                                    <span class="error1" id="timeStampError1"
+                                                          style="color: red; font-size: 12px;"></span>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button id="closebutton1" type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <button type="button" id="insertEmails"
+                                        <button type="button" id="insertImpressumnichtgefunden"
                                             class="btn btn-primary" >Save</button>
                                     </div>
                                 </div>
@@ -96,7 +85,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Update Email</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Update ImpressumNichtGefunden</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -105,25 +94,11 @@
                                         <div class="container-fluid">
                                             <form>
                                                 <div class="form-group">
-                                                    <label for="projectId">Projekt ID</label>
-                                                    <input type="number" class="form-control" id="projectId"
-                                                        aria-describedby="projectIdHelp" required>
-                                                    <span class="error1" id="projectIdError"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ceoName">CEO Name</label>
-                                                    <input type="text" class="form-control"
-                                                        id="ceoName" aria-describedby="ceoNameHelp"
+                                                    <label for="projectID">Projekt ID</label>
+                                                    <input type="number" class="form-control"
+                                                        id="projectID" aria-describedby="projectIDHelp"
                                                         required>
-                                                    <span class="error" id="ceoNameError"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        aria-describedby="emailHelp" required>
-                                                    <span class="error" id="emailError"
+                                                    <span class="error" id="projectIDError"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
                                                 <div class="form-group">
@@ -134,28 +109,33 @@
                                                     <span class="error" id="domainError"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="timeStamp">Time Stamp</label>
+                                                    <input type="datetime-local" class="form-control"
+                                                           id="timeStamp" aria-describedby="timeStampHelp"
+                                                           required>
+                                                    <span class="error1" id="timeStampError"
+                                                          style="color: red; font-size: 12px;"></span>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button id="closebutton" type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <button type="button" id="updateEmails"
-                                            class="btn btn-primary" onclick="updateEmails()">Save</button>
+                                        <button type="button" id="updateImpressumnichtgefunden"
+                                            class="btn btn-primary" onclick="updateImpressumnichtgefunden()">Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="table-responsive">
-                            <table id="emailsTable" class="table table-striped table-bordered display" style="width:100%">
+                            <table id="impressumnichtgefundenTable" class="table table-striped table-bordered display" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Action</th>
                                         <th style="display: none;">ID</th>
-                                        <th style="display: none;">Projekt ID</th>
-                                        <th>CEO Name</th>
-                                        <th>Email</th>
                                         <th>Domain</th>
                                     </tr>
                                 </thead>
@@ -171,6 +151,6 @@
     {% endblock %}
 
     {% block extra_scripts %}
-    <script src="{% static 'js/emails.js' %}"></script>
+    <script src="{% static 'js/impressumnichtgefunden.js' %}"></script>
 
     {% endblock %}

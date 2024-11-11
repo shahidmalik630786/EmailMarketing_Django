@@ -1,0 +1,21 @@
+.search-icon {
+    font-size: 7em;
+    color: inherit;
+}
+
+.key-icon {
+    position: absolute;
+    top: 0.4em; 
+    left: 0.4em; 
+    font-size: 0.6em; 
+    color: inherit;
+}
+
+.bi-x-lg{
+    position: absolute;
+    color: inherit;
+    font-size: 8px !important;
+    top: 11px;
+    left: 13px;
+    font-weight: 700 !important;
+}

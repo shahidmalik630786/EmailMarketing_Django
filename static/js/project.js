@@ -2,12 +2,12 @@ var projectTable;
 var projectId = 0;
 
 $(document).ready(function () {
-    loadList();
-    getProjectid();
+    getProjectid().then(() =>{
+        loadList();
+    })
 });
 
 // Delete
-
 $(document).on('click', '.btn-delete', function () {
     const projectId = $(this).data('id');
 
@@ -21,6 +21,7 @@ $(document).on('click', '.btn-delete', function () {
                 // Refresh DataTable
                 const table = $('#projectTable').DataTable();
                 table.row($(this).parents('tr')).remove().draw();
+                // projectTable.ajax.reload(null, false);
                 getProjectid();
             },
             error: function (error) {
@@ -31,11 +32,11 @@ $(document).on('click', '.btn-delete', function () {
 });
 
 
-
 // UPDATE
 
 //Prefilling the update form
 function getProject(id){
+    $(".error").text('');
     projectId = id
     fetch(`/api/project/data/${id}/`, {
         method: 'GET',
@@ -46,11 +47,9 @@ function getProject(id){
     .then(response => response.json())
     .then(data => {
         if (data) {
-
             const settings = data;
-
-            $('#projectName1').val(settings.name);            
-
+            $('#projectId').val(settings.id);
+            $('#name1').val(settings.name);            
         } else {
             console.log('No data found.');
         }
@@ -58,12 +57,11 @@ function getProject(id){
     .catch(error => {
         console.error('Error:', error);
     });
-
 }
 
 
 function getProjectid() {
-    fetch(`/api/project/data/`, {  
+    return fetch(`/api/project/data/`, {  
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -79,13 +77,21 @@ function getProjectid() {
         if (data && Array.isArray(data)) {
             const select = document.getElementById('projectSelect').querySelector('optgroup'); 
             select.innerHTML = ''; 
-
+            const defaultValue = sessionStorage.getItem("projectId"); 
             data.forEach(setting => {
                 const option = document.createElement('option');
                 option.value = setting.id; // Set value to projekt_id
-                option.textContent = `${setting.name} (${setting.id})`;; // Set the text to ceo_name and projekt_id
-                select.appendChild(option); // Append the option to the optgroup
+                option.textContent = `${setting.name} (${setting.id})`; 
+
+                if (defaultValue && setting.id == defaultValue) {
+                    option.selected = true; 
+                }
+
+                select.appendChild(option);
             });
+            const selectedProjectId = $('#projectSelect').val();
+            sessionStorage.setItem('projectId', selectedProjectId);
+
         } else {
             console.log('No data found.');
         }
@@ -96,103 +102,70 @@ function getProjectid() {
 }
 
 
+
+
+
 function updateProject() {
-    const projectName = document.getElementById("projectName1").value;
+    document.getElementById('nameError1').innerHTML = '';
+    $(".error").text('');
+    const name = $('#name1').val();
 
     const data = {
-        name: projectName
+        name: name,
     };
 
-    let hasErrors = false;
-
-    const errorElement = document.getElementById('projectnameError1');
-    errorElement.textContent = '';
-
-    if (projectName.trim() === '') {
-        errorElement.textContent = 'Project name is required.';
-        hasErrors = true;
-    } else if (projectName.length < 3) {
-        errorElement.textContent = 'Project name must be at least 3 characters long.';
-        hasErrors = true;
-    } else if (projectName.length > 50) {
-        errorElement.textContent = 'Project name must not exceed 50 characters.';
-        hasErrors = true;
-    }
-
-    if (hasErrors) {
-        return; 
-    }
-        
-    document.getElementById('closebutton1').click()
-    fetch(`/api/project/${projectId}/`, {
+    $.ajax({
+        url: `/api/project/${projectId}/`,
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            projectTable.ajax.reload(null, false);
+            $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
+            $('#closebutton1').click();
+            getProjectid();
         },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.msg) {
-            $('#projectTable').DataTable().ajax.reload();
-        } else {
-            console.log('Failed to update the project. Error: ' + (data.error || 'Unknown error'));
+        error: function (xhr) {
+            const errors = xhr.responseJSON.error;
+            if (errors.name) {
+                $('#nameError1').text(errors.name);
+            }
         }
-        getProjectid();
-    })
-    .catch(error => {
-        console.error('Error:', error);
     });
-}
+};
 
 
 // Insert
 
 // Handle the form submission
 $('#insertProject').on('click', function () {
-    // Get the input value
-    const projectName = $('#exampleInputName').val();
-
-    let hasErrors = false;
-
-    document.getElementById(`projectnameError1`).textContent = '';
-
-    if (projectName.trim() === '') {
-        document.getElementById(`projectnameError1`).textContent = 'Project name is required.';
-        hasErrors = true;
-    } else if (projectName.length < 3) {
-        document.getElementById(`projectnameError1`).textContent = 'Project name must be at least 3 characters long.';
-        hasErrors = true;
-    } else if (projectName.length > 50) {
-        document.getElementById(`projectnameError1`).textContent = 'Project name must not exceed 50 characters.';
-        hasErrors = true;
-    }
-
-    if (hasErrors) {
-        return;
-    }
-
-    if (!projectName) {
-        return;
-    }
-    $('#closebutton').click();
-
+    $(".error1").text('');
+    const name = $('#name').val();
     $.ajax({
         url: '/api/project/',
         method: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ name: projectName }),
+        data: JSON.stringify({
+            name: name,
+        }),
         success: function (response) {
-
-            $('#projectTable').DataTable().ajax.reload();
-            $('#exampleInputName').val('');
+            $('#projectTable').DataTable().ajax.reload(null, false);
+            // Clear the form after successful submission
+            $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
+            document.getElementById('closebutton2').click();
             getProjectid();
-            
         },
         error: function (xhr) {
-            const errors = xhr.responseJSON.error || "An error occurred. Please try again.";
+            const errors = xhr.responseJSON.error; 
+        
+            if (errors.name) {
+                $('#nameError').text(errors.name[0]); 
+            }
+            
         }
+        
     });
+
 });
 
 
@@ -224,7 +197,7 @@ function loadList(){
                     return `
                     <button type="button" class="btn btn-warning mx-1 btnupdate" data-toggle="modal" data-target="#updateModal" data-id="${row.id}" onclick="getProject(${row.id})" ><i class="bi bi-pencil-square"></i></button>
     
-    <button class="btn btn-danger btn-delete mx-1" data-id="${row.id}"><i class="bi bi-trash-fill"></i></button>
+                     <button class="btn btn-danger btn-delete mx-1" data-id="${row.id}"><i class="bi bi-trash-fill"></i></button>
 
             
         `;
@@ -243,9 +216,15 @@ function loadList(){
         "serverMethod": "GET"
     });
     $('#projectSelect').change(function () {
+        const selectedProjectId = $('#projectSelect').val();
+        sessionStorage.setItem('projectId', selectedProjectId);
         projectTable.ajax.reload(null, false);
-        getProjectid();
     });
 }
 
 
+//clean the insert form
+$('#exampleModal').on('hidden.bs.modal', function () {
+    $('#name').val('');
+    $('.error1').text('');
+});

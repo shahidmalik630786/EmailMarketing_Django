@@ -3,12 +3,7 @@
 {% block content %}
 
 <!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Page wrapper  -->
-<!-- ============================================================== -->
 <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
     <div class="page-breadcrumb">
         <div class="row">
@@ -17,43 +12,18 @@
                 <div class="d-flex align-items-center">
                 </div>
             </div>
-            <!-- <div class="col-7 align-self-center">
-                <div class="d-flex no-block justify-content-end align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div> -->
         </div>
     </div>
     <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
-        <!-- add row -->
-
-
-        <!-- Row selection (multiple rows) -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <!-- <button id="button" class="btn btn-primary mb-2"><i class="mdi mdi-filter"></i>Add Row</button> -->
                         <!-- Button trigger modal -->
                         <button id="updatebutton" type="button" class="btn btn-primary mb-2" data-toggle="modal"
-                            data-target="#exampleModal">
+                            data-target="#exampleModal" >
                             Add Project
                         </button>
 
@@ -69,20 +39,19 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" class="form-control" id="exampleInputName"
-                                                    aria-describedby="NAmeHelp">
-                                                <span class="error" id="projectnameError1"
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" id="name"
+                                                    aria-describedby="NameHelp">
+                                                <span class="error1" id="nameError"
                                                     style="color: red;font-size: 12px;"></span>
                                             </div>
                                             <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button id="closebutton" type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                        <button id="closebutton2" type="button" class="btn btn-secondary"
+                                            data-dismiss="modal" onclick="clearModalFields()" >Close</button>
                                         <button type="button" id="insertProject"
                                             class="btn btn-primary">Save</button>
                                     </div>
@@ -92,12 +61,12 @@
 
 
                         <!-- Insert Modal -->
-                        <div class="modal fade" id="exampleUpdateModal" tabindex="-1" role="dialog"
+                        <!-- <div class="modal fade" id="exampleUpdateModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Projectttt</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -118,7 +87,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Update Modal -->
                         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -132,10 +101,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <form>
+                                            <!-- <div class="form-group">
+                                                <label for="projectId">Projekt ID</label>
+                                                <input type="number" class="form-control" id="projectId"
+                                                    aria-describedby="projectIdHelp" required>
+                                                <span class="error1" id="projectIdError"
+                                                    style="color: red; font-size: 12px;"></span>
+                                            </div> -->
                                             <div class="form-group">
-                                                <label for="projectName1">Name</label>
-                                                <input type="text" class="form-control" id="projectName1" aria-describedby="NameHelp" value="">
-                                                <span class="error" id="projectnameError1" style = "color: red;font-size: 12px;" ></span>
+                                                <label for="name1">Name</label>
+                                                <input type="text" class="form-control" id="name1" aria-describedby="NameHelp" value="">
+                                                <span class="error" id="nameError1" style = "color: red;font-size: 12px;" ></span>
                                             </div>
                                         </form>
                                     </div>
@@ -163,8 +139,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->

@@ -2,9 +2,9 @@ var emailId = 0;
 var emailTable;
 
 $(document).ready(function () {
-    loadList();
-    getprojectid();
-
+    getProjectid().then(() => {
+        loadList();
+    })
 
     $(document).on('click', '.btn-delete', function () {
         const settingId = $(this).data('id');
@@ -15,8 +15,10 @@ $(document).ready(function () {
                 method: 'DELETE',
                 success: function (response) {
                     console.log("Data deleted successfully.");
-                    emailTable.ajax.reload(null,false);
-                    getprojectid();
+                    // const table = $('#emailsTable').DataTable();
+                    // table.row($(this).parents('tr')).remove().draw();
+                    emailTable.ajax.reload();
+                    getProjectid();
                 },
                 error: function (error) {
                     console.error('Error deleting emails:', error);
@@ -24,6 +26,11 @@ $(document).ready(function () {
             });
         }
     });
+    
+    // add default id in insert form
+    $('#insertButton').on('click', function(){
+        $('#projectId1').val(sessionStorage.getItem('projectId'));
+    })
 
     $('#insertEmails').on('click', function () {
         
@@ -46,13 +53,13 @@ $(document).ready(function () {
             }),
             success: function (response) {
     
-                $('#emailsTable').DataTable().ajax.reload();
+                $('#emailsTable').DataTable().ajax.reload(null, false);
 
                 // Clear the form after successful submission
                 $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
 
                 $('#closebutton1').click();
-                getprojectid();
+                getProjectid();
                 
             },
             error: function (xhr) {
@@ -76,7 +83,6 @@ $(document).ready(function () {
         
     });
 });
-
 
 // UPDATE
 
@@ -111,8 +117,8 @@ function getSettings(id){
 
 }
 
-function getprojectid() {
-    fetch(`/api/emails/data/`, {  
+function getProjectid() {
+    return fetch(`/api/project/data/`, {  
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -128,12 +134,15 @@ function getprojectid() {
         if (data && Array.isArray(data)) {
             const select = document.getElementById('projectSelect').querySelector('optgroup'); // Access the optgroup
             select.innerHTML = ''; // Clear existing options
-
+            const defaultValue = sessionStorage.getItem("projectId"); 
             data.forEach(setting => {
                 const option = document.createElement('option');
-                option.value = setting.projekt_id; // Set value to projekt_id
-                option.textContent = `${setting.ceo_name} (${setting.projekt_id})`; // Set the text to ceo_name and projekt_id
-                select.appendChild(option); // Append the option to the optgroup
+                option.value = setting.id; // Set value to projekt_id
+                option.textContent = `${setting.name} (${setting.id})`; 
+                if (defaultValue && setting.id == defaultValue) {
+                    option.selected = true; 
+                }
+                select.appendChild(option); 
             });
         } else {
             console.log('No data found.');
@@ -166,13 +175,12 @@ function updateEmails() {
         data: JSON.stringify(data),
         success: function (response) {
             //emailTable.clear().draw();
-            emailTable.ajax.reload(null,false);
+            emailTable.ajax.reload(null, false);
 
             $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
 
             $('#closebutton').click();
-            getprojectid();
-
+            getProjectid();
             
         },
         error: function (xhr) {
@@ -190,8 +198,6 @@ function updateEmails() {
             if (errors.domain) {
                 $('#domainError').text(errors.domain);
             }
-
-            
         }
     });
 };
@@ -218,7 +224,7 @@ function loadList() {
             },
             "error": function (xhr, error, thrown) {
                 
-                console.log(xhr.responseText); // Log the error response for debugging
+                console.log(xhr.responseText); 
             }
         },
         "columns": [
@@ -235,7 +241,7 @@ function loadList() {
 
             },
             { "data": "id", "visible": false },
-            { "data": "projekt_id" },
+            { "data": "projekt_id", "visible": false },
             { "data": "ceo_name" },
             { "data": "email" },
             { "data": "domain" },
@@ -246,7 +252,16 @@ function loadList() {
         "serverMethod": "GET"
     });
     $('#projectSelect').change(function () {
+        const selectedProjectId = $('#projectSelect').val();
+        sessionStorage.setItem('projectId', selectedProjectId);
         emailTable.ajax.reload();
     });
-
 }
+
+
+//clean the insert form
+$('#insertModal').on('hidden.bs.modal', function () {
+    $('#insertModal').find('input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], textarea').val('');
+    $('.error1').text('');
+    $('#insertModal').find('input[type=checkbox]').prop('checked', false);
+});

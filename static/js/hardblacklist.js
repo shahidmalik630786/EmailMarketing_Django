@@ -2,8 +2,10 @@ var hardblacklistid = 0;
 var hardblacklistTable;
 
 $(document).ready(function () {
-    loadList();
-    getprojectid();
+    getprojectid().then(() =>{
+        loadList();
+    })
+
     $(document).on('click', '.btn-delete', function () {
         const settingId = $(this).data('id');
         if (confirm("Are you sure you want to delete this record?")) {
@@ -12,7 +14,7 @@ $(document).ready(function () {
                 method: 'DELETE',
                 success: function (response) {
                     console.log("Data deleted successfully.");
-                    hardblacklistTable.ajax.reload(null, false);
+                    hardblacklistTable.ajax.reload();
                     getprojectid();
                 },
                 error: function (error) {
@@ -22,8 +24,12 @@ $(document).ready(function () {
         }
     });
 
+    // add default id in insert form
+    $('#insertButton').on('click', function(){
+        $('#projectId1').val(sessionStorage.getItem('projectId'));
+    })
 
-$('#insertHardBlacklist').on('click', function () {
+    $('#insertHardBlacklist').on('click', function () {
 
         $(".error1").text('');
         const projectid = $('#projectId1').val();
@@ -37,7 +43,7 @@ $('#insertHardBlacklist').on('click', function () {
                 domain: domain,
             }),
             success: function (response) {
-                $('#hardblacklistTable').DataTable().ajax.reload();
+                $('#hardblacklistTable').DataTable().ajax.reload(null, false);
                 // Clear the form after successful submission
                 $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
                 $('#closebutton1').click();
@@ -52,10 +58,8 @@ $('#insertHardBlacklist').on('click', function () {
                 if (errors.domain) {
                     $('#domainError1').text(errors.domain);
                 }
-
             }
         });
-
     });
 });
 
@@ -89,7 +93,7 @@ function getHardBlacklist(id) {
 
 
 function getprojectid() {
-    fetch(`/api/hardblacklist/data/`, {  
+    return fetch(`/api/project/data/`, {  
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -104,13 +108,16 @@ function getprojectid() {
     .then(data => {
         if (data && Array.isArray(data)) {
             const select = document.getElementById('projectSelect').querySelector('optgroup'); // Access the optgroup
-            select.innerHTML = ''; // Clear existing options
-
+            select.innerHTML = ''; 
+            const defaultValue = sessionStorage.getItem("projectId"); 
             data.forEach(setting => {
                 const option = document.createElement('option');
-                option.value = setting.projekt_id; // Set value to projekt_id
-                option.textContent = `${setting.domain} (${setting.projekt_id})`; // Set the text to ceo_name and projekt_id
-                select.appendChild(option); // Append the option to the optgroup
+                option.value = setting.id; 
+                option.textContent = `${setting.name} (${setting.id})`; 
+                if (defaultValue && setting.id == defaultValue) {
+                    option.selected = true; 
+                }
+                select.appendChild(option); 
             });
         } else {
             console.log('No data found.');
@@ -120,7 +127,6 @@ function getprojectid() {
         console.error('Error:', error);
     });
 }
-
 
 
 function updateHardBlacklist() {
@@ -156,7 +162,6 @@ function updateHardBlacklist() {
         }
     });
 };
-
 
 
 // Datatable
@@ -198,7 +203,7 @@ function loadList() {
 
             },
             { "data": "id", "visible": false },
-            { "data": "projekt_id" },
+            { "data": "projekt_id", "visible": false },
             { "data": "domain" },
 
         ],
@@ -207,7 +212,17 @@ function loadList() {
         "serverMethod": "GET"
     });
     $('#projectSelect').change(function () {
+        const selectedProjectId = $('#projectSelect').val();
+        sessionStorage.setItem('projectId', selectedProjectId);
         hardblacklistTable.ajax.reload();
     });
 
 }
+
+
+//clean the insert form
+$('#insertModal').on('hidden.bs.modal', function () {
+    $('#insertModal').find('input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], textarea').val('');
+    $('.error1').text('');
+    $('#insertModal').find('input[type=checkbox]').prop('checked', false);
+});

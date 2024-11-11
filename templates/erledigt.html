@@ -34,7 +34,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add General Words</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Erledigt</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -42,6 +42,14 @@
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <form>
+                                                <div class="form-group">
+                                                    <label for="projectID1">Projekt ID</label>
+                                                    <input type="number" class="form-control"
+                                                        id="projectID1" aria-describedby="projectIDHelp"
+                                                        required>
+                                                    <span class="error1" id="projectIDError1"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="domain1">Domain</label>
                                                     <input type="text" class="form-control"
@@ -58,14 +66,6 @@
                                                     <span class="error1" id="ceoNameError1"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
-                                                <!-- <div class="form-group">
-                                                    <label for="emailText1">Email Text</label>
-                                                    <input type="text" class="form-control"
-                                                        id="emailText1" aria-describedby="emailTextHelp"
-                                                        required>
-                                                    <span class="error1" id="emailTextError1"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div> -->
                                                 <div class="form-group">
                                                     <label for="emailText1">Email Text</label>
                                                     <textarea class="form-control" id="emailText1" rows="3"
@@ -73,15 +73,6 @@
                                                     <span class="error1" id="emailTextError1"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="projectID1">Projekt ID</label>
-                                                    <input type="number" class="form-control"
-                                                        id="projectID1" aria-describedby="projectIDHelp"
-                                                        required>
-                                                    <span class="error1" id="projectIDError1"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div>
-                                                
                                                 <div class="form-group">
                                                     <label for="timeStamp1">Time Stamp</label>
                                                     <input type="datetime-local" class="form-control"
@@ -91,7 +82,6 @@
                                                           style="color: red; font-size: 12px;"></span>
                                                 </div>
                                                 
-
                                             </form>
                                         </div>
                                     </div>
@@ -111,7 +101,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Update Setting</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Update Erledigt</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -119,6 +109,14 @@
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <form>
+                                                <div class="form-group">
+                                                    <label for="projectID">Projekt ID</label>
+                                                    <input type="number" class="form-control"
+                                                        id="projectID" aria-describedby="projectIDHelp"
+                                                        required>
+                                                    <span class="error" id="projectIDError"
+                                                        style="color: red; font-size: 12px;"></span>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="domain">Domain</label>
                                                     <input type="text" class="form-control"
@@ -135,14 +133,7 @@
                                                     <span class="error" id="ceoNameError"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
-                                                <!-- <div class="form-group">
-                                                    <label for="emailText">Email Text</label>
-                                                    <input type="text" class="form-control"
-                                                        id="emailText" aria-describedby="emailTextHelp"
-                                                        required>
-                                                    <span class="error" id="emailTextError"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div> -->
+
                                                 <div class="form-group">
                                                     <label for="emailText">Email Text</label>
                                                     <textarea class="form-control" id="emailText" rows="3"
@@ -150,14 +141,7 @@
                                                     <span class="error1" id="emailTextError"
                                                         style="color: red; font-size: 12px;"></span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="projectID">Projekt ID</label>
-                                                    <input type="number" class="form-control"
-                                                        id="projectID" aria-describedby="projectIDHelp"
-                                                        required>
-                                                    <span class="error" id="projectIDError"
-                                                        style="color: red; font-size: 12px;"></span>
-                                                </div>
+ 
                                                 <div class="form-group">
                                                     <label for="timeStamp">Time Stamp</label>
                                                     <input type="datetime-local" class="form-control"
@@ -186,11 +170,9 @@
                                     <tr>
                                         <th>Action</th>
                                         <th style="display: none;">ID</th>
+                                        <th style="display: none;">Project ID</th>
                                         <th>Domain</th>
                                         <th>Ceo Name</th>
-                                        <th>Email Text</th>
-                                        <th>Project ID</th>
-                                        <th>Time Stamp</th>
                                     </tr>
                                 </thead>
                             </table>

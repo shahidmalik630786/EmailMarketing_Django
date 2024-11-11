@@ -1,21 +1,20 @@
-var generalwordid = 0;
-var generalwordTable;
+var parkingkeyword_id = 0;
+var parkingKeywordTable;
 
 $(document).ready(function () {
-    getGeneralWords().then(()=>{
+    getProjectID().then(()=>{
         loadList();
-    });
-    
+    })
     $(document).on('click', '.btn-delete', function () {
-        const settingId = $(this).data('id');
+        const keywordId = $(this).data('id');
         if (confirm("Are you sure you want to delete this record?")) {
             $.ajax({
-                url: `/api/generalwords/${settingId}/`,
+                url: `/api/parkingkeywords/${keywordId}/`,
                 method: 'DELETE',
                 success: function (response) {
                     console.log("Data deleted successfully.");
-                    generalwordTable.ajax.reload();
-                    getGeneralWords();
+                    parkingKeywordTable.ajax.reload();
+                    getProjectID();
                 },
                 error: function (error) {
                     console.error('Error deleting emails:', error);
@@ -23,34 +22,33 @@ $(document).ready(function () {
             });
         }
     });
-    
 
 
-    $('#insertGeneralword').on('click', function () {
-
+    $('#insertParkingKeyword').on('click', function () {
         $(".error1").text('');
-        const word = $('#word1').val();
+        const keyword = $('#keyword1').val();
         $.ajax({
-            url: '/api/generalwords/',
+            url: '/api/parkingkeywords/',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                word: word,
+                keyword: keyword,
             }),
             success: function (response) {
-                $('#generalwordsTable').DataTable().ajax.reload(null, false);
-                // Clear the form after successful submission
+                $('#parkingKeywordTable').DataTable().ajax.reload(null, false);
                 $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
                 $('#closebutton1').click();
-                getGeneralWords();
+                getProjectID();
             },
             error: function (xhr) {
-                const errors = xhr.responseJSON.error; // Assuming the response structure
-
-                if (errors.word) {
-                    $('#wordError1').text(errors.word);
+                const errors = xhr.responseJSON.error; 
+            
+                if (errors.keyword) {
+                    $('#keywordError1').text(errors.keyword[0]); 
                 }
+                
             }
+            
         });
 
     });
@@ -59,32 +57,31 @@ $(document).ready(function () {
 // UPDATE
 
 //Prefilling the update form
-function getGeneralWordsID(id) {
-    generalwordid = id
-    fetch(`/api/generalwords/data/${id}/`, {
+function getParkingKeyword(id) {
+    parkingkeyword_id = id
+    fetch(`/api/parkingkeywords/data/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data) {
+    .then(response => response.json())
+    .then(data => {
+        if (data) {
 
-                const settings = data;
-                $('#word').val(settings.word);
-
-            } else {
-                console.log('No data found.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            const settings = data;
+            $('#keyword').val(settings.keyword);
+        } else {
+            console.log('No data found.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 
-function getGeneralWords() {
+function getProjectID() {
     return fetch(`/api/project/data/`, {  
         method: 'GET',
         headers: {
@@ -99,17 +96,18 @@ function getGeneralWords() {
     })
     .then(data => {
         if (data && Array.isArray(data)) {
-            const select = document.getElementById('projectSelect').querySelector('optgroup'); // Access the optgroup
-            select.innerHTML = ''; // Clear existing options
-            const defaultValue = sessionStorage.getItem("projectId");
+            const select = document.getElementById('projectSelect').querySelector('optgroup'); 
+            select.innerHTML = ''; 
+            const defaultValue = sessionStorage.getItem("projectId"); 
+
             data.forEach(setting => {
                 const option = document.createElement('option');
-                option.value = setting.id; // Changed: Set value to id instead of word
-                option.textContent = `${setting.name} (${setting.id})`; // Set the text to word and id
+                option.value = setting.id; 
+                option.textContent = `${setting.name} (${setting.id})`; 
+                select.appendChild(option); 
                 if (defaultValue && setting.id == defaultValue) {
                     option.selected = true; 
                 }
-                select.appendChild(option); // Append the option to the optgroup
             });
         } else {
             console.log('No data found.');
@@ -121,49 +119,51 @@ function getGeneralWords() {
 }
 
 
-function updateGeneralword() {
+function updateParkingKeyword() {
     $(".error").text('');
-    const word = $('#word').val();
+    const keyword = $('#keyword').val();
 
     const data = {
-        word: word,
+        keyword: keyword,
     };
 
     $.ajax({
-        url: `/api/generalwords/${generalwordid}/`,
+        url: `/api/parkingkeywords/${parkingkeyword_id}/`,
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (response) {
-            generalwordTable.ajax.reload(null, false);
+            parkingKeywordTable.ajax.reload(null, false);
             $('input[type=text], input[type=email], input[type=password], input[type=number], textarea').val('');
+            getProjectID();
             $('#closebutton').click();
-            geteErledigt();
         },
         error: function (xhr) {
-            const errors = xhr.responseJSON.error;
-            if (errors.word) {
-                $('#wordError').text(errors.word);
+            const errors = xhr.responseJSON.error; 
+        
+            if (errors.keyword) {
+                $('#keywordError').text(errors.keyword[0]); 
             }
+            
         }
     });
 };
 
 
-
+// Datatable
 function loadList() {
-    generalwordTable = $('#generalwordsTable').DataTable({
+    parkingKeywordTable = $('#parkingKeywordTable').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "/api/generalwords/",
+            "url": "/api/parkingkeywords/",
             "type": "GET",
             "data": function (d) {
                 return {
                     "page": (d.start / d.length) + 1,
                     "page_size": d.length,
                     "search[value]": d.search.value,
-                    "generalwordid": $('#projectSelect').val(),
+                    "projekt_id": $('#projectSelect').val(),
                     "draw": d.draw
                 };
             },
@@ -171,8 +171,8 @@ function loadList() {
                 return response.data;
             },
             "error": function (xhr, error, thrown) {
-                
-                console.log(xhr.responseText); 
+
+                console.log(xhr.responseText);
             }
         },
         "columns": [
@@ -180,7 +180,7 @@ function loadList() {
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                    <button type="button" class="btn btn-warning mx-1 btnupdate" data-toggle="modal" data-target="#updateModal" data-id="${row.id}" onclick="getGeneralWordsID(${row.id})" ><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" class="btn btn-warning mx-1 btnupdate" data-toggle="modal" data-target="#updateModal" data-id="${row.id}" onclick="getParkingKeyword('${row.id}')" ><i class="bi bi-pencil-square"></i></button>
                 <button id = "btn-delete" class="btn btn-danger btn-delete mx-1" data-id="${row.id}"><i class="bi bi-trash-fill"></i></button>`;
 
                 },
@@ -188,13 +188,8 @@ function loadList() {
                 "width": "120px"
 
             },
-            { "data": "id", "visible": false },
-            {
-                "data": "word",
-                "render": function (data) {
-                    return data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                }
-            }
+            { "data": "id", "visible": false},
+            { "data": "keyword"},
 
         ],
         "paging": true,  
@@ -204,13 +199,16 @@ function loadList() {
     $('#projectSelect').change(function () {
         const selectedProjectId = $('#projectSelect').val();
         sessionStorage.setItem('projectId', selectedProjectId);
-        generalwordTable.ajax.reload();
+        parkingKeywordTable.ajax.reload(null, false);
     });
 }
 
 //clean the insert form
 $('#insertModal').on('hidden.bs.modal', function () {
-    $('#insertModal').find('input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], textarea').val('');
+    $('#insertModal').find('input[type=text], input[type=email], input[type=password], input[type=number], input[type=url], input[type=datetime-local], textarea').val('');
     $('.error1').text('');
     $('#insertModal').find('input[type=checkbox]').prop('checked', false);
 });
+
+
+

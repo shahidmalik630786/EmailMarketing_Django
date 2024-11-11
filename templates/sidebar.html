@@ -62,6 +62,67 @@
                         <span class="hide-menu">Erledigt</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{% url 'email_sender:skipdomain' %}"
+                        aria-expanded="false">
+                        <i class="bi bi-globe2"></i>
+                        <span class="hide-menu">Skip Domain</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{% url 'email_sender:fehlerhaft' %}"
+                        aria-expanded="false">
+                        <i class="bi bi-exclamation-square-fill"></i>
+                        <span class="hide-menu">Fehlerhaft</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{% url 'email_sender:keywords' %}"
+                        aria-expanded="false">
+                        <span class="icon-wrapper">
+                            <i class="bi bi-search search-icon"></i>
+                            <i class="bi bi-key-fill key-icon"></i>
+                        </span>
+                        <span class="hide-menu">Keywords</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{% url 'email_sender:blacklistkeywords' %}"
+                        aria-expanded="false">
+                        <span class="icon-wrapper">
+                            <i class="bi bi-slash-circle"></i>
+                        </span>
+                        <span class="hide-menu">Blacklist Keywords</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{% url 'email_sender:impressumnichtgefunden' %}"
+                        aria-expanded="false">
+                        <span class="icon-wrapper">
+                            <i class="bi bi-search search-icon"></i>
+                            <i class="bi bi-x-lg"></i>
+                        </span>
+                        <span class="hide-menu">ImpressumNichtGefunden</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{% url 'email_sender:parkingkeywords' %}"
+                        aria-expanded="false">
+                        <span class="icon-wrapper">
+                            <i class="bi bi-key"></i>
+                        </span>
+                        <span class="hide-menu">Parking Keywords</span>
+                    </a>
+                </li>
+                
+
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
